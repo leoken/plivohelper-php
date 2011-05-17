@@ -9,15 +9,10 @@ The Plivo PHP helper simplifies the process of making REST calls and generating 
 See `Plivo Documentation <http://www.plivo.org/documentation/>`_ for more information.
 
 
-
-### USAGE
-To use the Twilio library, just include
-twilio.php in the your current php file.
-
 Usage
 ~~~~~
 
-To use the Plivo helper library, just include twilio.php in the your current php file.
+To use the Plivo helper library, just include plivohelper.php in the your current php file.
 
 As shown in example-call.php, you will need to specify the ACCOUNT_ID and ACCOUNT_TOKEN, before you can make REST requests.
 Before you run the examples, you should have Plivo Running along with FreeSWITCH Running and a user 1000 logged in.
