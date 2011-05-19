@@ -187,7 +187,7 @@
         // REST Hangup All Live Calls Helper
         public function hangup_all_calls() {
             $path = "/v0.1/HangupAllCalls/";
-            $method = "GET";
+            $method = "POST";
             return request($path, $method);
         }
 
