@@ -75,10 +75,8 @@
     // See the conferencing docs for more information
     // http://www.twilio.com/docs/api/twiml/conference
     $r = new Response();
-    $dial = new Dial();
     $conf = new Conference('MyRoom',array('startConferenceOnEnter'=>"true"));
-    $dial->append($conf);
-    $r->append($dial);
+    $r->append($conf);
     $r->Respond();
 
     /*
@@ -100,12 +98,10 @@
     $redirect = new Redirect();
     $redirect->set("crazy","delicious");
     $r->append($redirect);
-    //$r-> Respond();
+    $r-> Respond();
 
     /*
     <Response>
         <Redirect crazy="delicious"/>
     </Response>
     */
-
-?>
