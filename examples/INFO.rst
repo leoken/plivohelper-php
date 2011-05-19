@@ -9,38 +9,30 @@ an Telephony applications with Plivo
 FILES
 ~~~~~
 
-    * example_bulk_call.py :
+    * example-bulkcalls.php :
         Example to outbound several calls simultaneously
 
-    * example_call.py :
+    * example-call.php :
 
         Example to outbound a single call
         
-    * example-transfercall.py :
+    * example-transfercall.php :
     
         Example of Call Transfer
 
-    * example_response_server.py :
-
-        Demonstrate our a Response server can easily be created with Flask
-
-    * example_utils.py :
+    * example-utils.php :
 
         example using plivohelper.Util
         
-    * example-hangupcall.py :
+    * example-hangupcall.php :
     
         Example of Hangup call via Rest API
 
-    * example_xml.py :
+    * example-restxml.php :
 
         Demonstrate how the XML is generate using plivohelper
-
-    * templates/response_template.xml :
-
-        This is the XML template that is used to reply
-        
-    * example-phonemenu.py
+       
+    * example-phonemenu.php
     
         This is a simple phone menu application that demonstrate a simple
         branching menu with options
