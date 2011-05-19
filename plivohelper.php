@@ -33,10 +33,11 @@
             $this->Url = $matches[1];
             $this->QueryString = $matches[2];
             $this->ResponseText = $text;
+            echo $text;
             $this->HttpStatus = $status;
             if($this->HttpStatus != 204)
-                $this->ResponseXml = @simplexml_load_string($text);
-
+                $this->ResponseXml = simplexml_load_string($text);
+            echo $this->ResponseXml;
             if($this->IsError = ($status >= 400)) {
               if($status == 401) {
                 $this->ErrorMessage = "Authentication required";
@@ -152,7 +153,7 @@
                 fclose($fp);
             if(strlen($tmpfile))
                 unlink($tmpfile);
-
+            echo "PlivoRestResponse----------";
             return new PlivoRestResponse($url, $result, $responseCode);
         }
 
@@ -160,7 +161,7 @@
         public function call($vars = array()) {
             $path = "/v0.1/Call/";
             $method = "POST";
-            return request($path, $method, $vars);
+            return $this->request($path, $method, $vars);
         }
 
         // REST Bulk Call Helper
