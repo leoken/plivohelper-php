@@ -32,7 +32,8 @@ FILES
 
         Demonstrate how the XML is generate using plivohelper
        
-    * example-phonemenu.php
+    * phonemenu/phonemenu_response.php & phonemenu/phonemenu.php
     
         This is a simple phone menu application that demonstrate a simple
-        branching menu with options
+        branching menu with options.
+        You will need to install those file on an HTTP server (Apache).
