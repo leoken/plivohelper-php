@@ -36,7 +36,7 @@
     );
     
     try {
-        // Initiate call
+        // Initiate various calls
         $response = $client->bulk_call($call_params);
         print_r($response);
     } catch (Exception $e) {
@@ -46,6 +46,6 @@
     
     // check response for success or error
     if($response->IsError)
-    	echo "Error starting phone call: {$response->ErrorMessage}\n";
+    	echo "Error starting phone calls: {$response->ErrorMessage}\n";
     else
-    	echo "Started call: {$response->Response->RequestUUID}\n";
+    	echo "Started calls: {$response->Response->RequestUUID}\n";

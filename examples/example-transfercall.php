@@ -17,13 +17,14 @@
     // ========================================================================
     
     # Hangup a call using a HTTP POST
-    $hangup_call_params = array(
+    $transfer_call_params = array(
+        'URL' => "http://127.0.0.1:5000/transfered/",
         'CallUUID' => 'edaa59e1-79e0-41de-b016-f7a7570f6e9c', # Request UUID to hangup call
     );
     
     try {
-        // Hangup call
-        $response = $client->hangup_call($hangup_call_params);
+        // Transfer call
+        $response = $client->transfer_call($transfer_call_params);
         print_r($response);
     } catch (Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
