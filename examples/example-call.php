@@ -5,11 +5,11 @@
     $REST_API_URL = 'http://127.0.0.1:8088';
     
     // Plivo REST API version 
-    $ApiVersion = "v0.1";
+    $ApiVersion = 'v0.1';
     
     // Set our AccountSid and AuthToken 
-    $AccountSid = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-    $AuthToken = "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY";
+    $AccountSid = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+    $AuthToken = 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY';
     
     // Instantiate a new Twilio Rest Client 
     $client = new PlivoRestClient($REST_API_URL, $AccountSid, $AuthToken, $ApiVersion);

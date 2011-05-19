@@ -66,17 +66,20 @@
         protected $Endpoint;
         protected $AccountSid;
         protected $AuthToken;
+        protected $ApiVersion;
 
         /*
          * __construct
          *   $username : Plivo Sid
          *   $password : Plivo AuthToken
          *   $endpoint : The Plivo REST URL
+         *   $ApiVersion : The API version
          */
-        public function __construct($endpoint, $accountSid, $authToken) {
+        public function __construct($endpoint, $accountSid, $authToken, $ApiVersion = 'v0.1') {
             $this->AccountSid = $accountSid;
             $this->AuthToken = $authToken;
             $this->Endpoint = $endpoint;
+            $this->ApiVersion = $ApiVersion;
         }
 
         /*
@@ -157,49 +160,49 @@
 
         // REST Call Helper
         public function call($vars = array()) {
-            $path = "/v0.1/Call/";
+            $path = "/$this->ApiVersion/Call/";
             $method = "POST";
             return $this->request($path, $method, $vars);
         }
 
         // REST Bulk Call Helper
         public function bulk_call($vars = array()) {
-            $path = "/v0.1/BulkCalls/";
+            $path = "/$this->ApiVersion/BulkCalls/";
             $method = "POST";
             return request($path, $method, $vars);
         }
 
         // REST Transfer Live Call Helper
         public function transfer_call($vars = array()) {
-            $path = "/v0.1/TransferCall/";
+            $path = "/$this->ApiVersion/TransferCall/";
             $method = "POST";
             return request($path, $method, $vars);
         }
 
         // REST Hangup Live Call Helper
         public function hangup_call($vars = array()) {
-            $path = "/v0.1/HangupCall/";
+            $path = "/$this->ApiVersion/HangupCall/";
             $method = "POST";
             return request($path, $method, $vars);
         }
 
         // REST Hangup All Live Calls Helper
         public function hangup_all_calls() {
-            $path = "/v0.1/HangupAllCalls/";
+            $path = "/$this->ApiVersion/HangupAllCalls/";
             $method = "POST";
             return request($path, $method);
         }
 
         // REST Schedule Hangup Helper
         public function schedule_hangup($vars = array()) {
-            $path = "/v0.1/ScheduleHangup/";
+            $path = "/$this->ApiVersion/ScheduleHangup/";
             $method = "POST";
             return request($path, $method, $vars);
         }
 
         // REST Cancel a Scheduled Hangup Helper
         public function cancel_scheduled_hangup($vars = array()) {
-            $path = "/v0.1/CancelScheduledHangup/";
+            $path = "/$this->ApiVersion/CancelScheduledHangup/";
             $method = "POST";
             return request($path, $method, $vars);
         }
