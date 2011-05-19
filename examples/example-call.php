@@ -32,13 +32,17 @@
         'RingUrl' => "http://127.0.0.1:5000/ringing/"
     );
     
-    // Initiate call
-    $response = $client->call($call_params); 
-    echo $response->ErrorMessage;
-    echo  "-*---------------**";
-    print_r($response);
+    try {
+        // Initiate call
+        $response = $client->call($call_params);
+        print_r($response);
+    } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
+        exit(0);
+    }
+    
     // check response for success or error
     if($response->IsError)
     	echo "Error starting phone call: {$response->ErrorMessage}\n";
     else
-    	echo "Started call: {$response->ResponseXml->Call->Sid}\n";
+    	echo "Started call: {$response->Response->RequestUUID}\n";

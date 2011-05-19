@@ -13,15 +13,14 @@
      * PlivoRestResponse holds all the REST response data
      * Before using the reponse, check IsError to see if an exception
      * occurred with the data sent to Plivo
-     * ResponseXml will contain a SimpleXml object with the response xml
-     * ResponseText contains the raw string response
+     * ResponseJson contains the raw json response
      * Url and QueryString are from the request
      * HttpStatus is the response code of the request
      */
     class PlivoRestResponse {
 
-        public $ResponseText;
-        public $ResponseXml;
+        public $ResponseJson;
+        public $Response;
         public $HttpStatus;
         public $Url;
         public $QueryString;
@@ -32,18 +31,17 @@
             preg_match('/([^?]+)\??(.*)/', $url, $matches);
             $this->Url = $matches[1];
             $this->QueryString = $matches[2];
-            $this->ResponseText = $text;
-            echo $text;
+            $this->ResponseJson = $text;
             $this->HttpStatus = $status;
             if($this->HttpStatus != 204)
-                $this->ResponseXml = simplexml_load_string($text);
-            echo $this->ResponseXml;
+                $this->Response = @json_decode($text);
+                
             if($this->IsError = ($status >= 400)) {
               if($status == 401) {
                 $this->ErrorMessage = "Authentication required";
               } else {
                 $this->ErrorMessage =
-                    (string)$this->ResponseXml->RestException->Message;
+                    (string)$this->Response->Message;
               }
             }
         }
@@ -153,7 +151,7 @@
                 fclose($fp);
             if(strlen($tmpfile))
                 unlink($tmpfile);
-            echo "PlivoRestResponse----------";
+            
             return new PlivoRestResponse($url, $result, $responseCode);
         }
 
