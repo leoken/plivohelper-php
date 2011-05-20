@@ -263,7 +263,7 @@
          *     Nests other grammar elements inside self.
          */
         function append($grammar) {
-            if(is_null($this->nesting))
+            if (!isset($this->nesting) or is_null($this->nesting))
                 throw new PlivoException($this->tag ." doesn't support nesting");
             else if(!is_object($grammar))
                 throw new PlivoException($grammar->tag . " is not an object");
@@ -307,7 +307,7 @@
         }
 
         function addRecord($attr = array()){
-            return self::append(new Record(NULL, $attr));
+            return self::append(new Record($attr));
         }
 
         function addHangup(){

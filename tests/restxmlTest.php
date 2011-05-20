@@ -13,19 +13,20 @@ On Ubuntu 11.04
 > sudo pear install --alldeps phpunit/PHPUnit
 
 Then run the test suit :
-> php restxmlTest.php
+> phpunit --verbose restxmlTest.php
 
 */
     // Testing Requires PHPUnit
-    require_once 'PHPUnit/Framework.php';
+    #require_once 'PHPUnit/Framework.php';
+    require_once 'PHPUnit/Autoload.php';
     require_once '../plivohelper.php';
 
     class RESTXMLTest extends PHPUnit_Framework_TestCase
     {
         public function addBadAttribute($verb){
-            $r = new $verb(NULL, array("foo" => "bar"));
+            $r = new $verb($attr = array("foo" => "bar"));
         }
-
+        
         // Test Response Grammar
         public function testResponseEmpty(){
             $r = new Response();
@@ -131,8 +132,9 @@ Then run the test suit :
 
         public function testRecordConvienceMethod(){
             $r = new Response();
+            #$r->append(new Record(array("transcribeCallback" => "example.com")));
             $r->addRecord(array("transcribeCallback" => "example.com"));
-            $expected = '<Response><Record transcribeCallback="example.com"></Record></Response>';
+            $expected = '<?xml version="1.0" encoding="UTF-8"?><Response><Record transcribeCallback="example.com"></Record></Response>';
             $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
         }
 
