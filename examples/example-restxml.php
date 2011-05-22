@@ -5,7 +5,7 @@
     to touch XML. Error checking is built in to help preventing invalid markup.
 
     USAGE:
-    To create RESTXML, you will make new RESTXML verbs and nest them inside another
+    To create RESTXML, you will make new RESTXML grammar and nest them inside another
     RESTXML verb. Convenience methods are provided to simplify RESTXML creation.
     */
 
@@ -14,43 +14,48 @@
     // ========================================================================
     // Using Speak, Dial, and Play
     $r = new Response();
-    $r->append(new Speak("Hello World", array("voice" => "man",
-        "language" => "fr", "loop" => "10")));
+    $r->append(new Speak("Hello World", array("loop" => "10")));
     $r->append(new Dial("4155551212", array("timeLimit" => "45")));
     $r->append(new Play("http://www.mp3.com"));
     $r->Respond();
 
     /* outputs:
     <Response>
-        <Speak voice="man" language="fr" loop="10">Hello World</Speak>
-        <Play>http://www.mp3.com</Play>
+        <Speak loop="10">Hello World</Speak>
         <Dial timeLimit="45">4155551212</Dial>
+        <Play>http://www.mp3.com</Play>
     </Response>
     */
 
     // The same XML can be created above using the convencience methods
     $r = new Response();
-    $r->addSpeak("Hello World", array("voice" => "man", "language" => "fr",
-        "loop" => "10"));
+    $r->addSpeak("Hello World", array("loop" => "10"));
     $r->addDial("4155551212", array("timeLimit" => "45"));
     $r->addPlay("http://www.mp3.com");
-    //$r->Respond();
+    $r->Respond();
 
     // ========================================================================
     // GetDigits, Redirect
     $r = new Response();
-    $g = $r->append(new GetDigits(array("numDigits" => "1")));
-    $g->append(new Speak("Press 1"));
-    $r->append(new Redirect());
-    //$r->Respond();
+    $g = $r->addgetDigits(array("numDigits" => "1", "timeout" => "25",
+            "playBeep" => "true"));
+    $g->addPlay("/usr/local/freeswitch/sounds/en/us/callie/ivr/8000/ivr-hello.wav", array("loop" => "10"));
+    $r->addWait(array("length" => "5", "transferEnabled" => "true"));
+    $r->addPlay("/usr/local/freeswitch/sounds/en/us/callie/ivr/8000/ivr-hello.wav", array("loop" => "10"));
+    $r->addRecord();
+    $r->addredirect();
+    $r->Respond();
 
 
     /* outputs:
     <Response>
-        <GetDigits numDigits="1">
-            <Speak>Press 1</Speak>
+        <GetDigits numdigits="1">
+            <Play loop="2">/usr/local/freeswitch/sounds/en/us/callie/ivr/8000/ivr-hello.wav</Play>
         </GetDigits>
-        <Redirect/>
+        <Pause length="5"/>
+        <Play loop="2">/usr/local/freeswitch/sounds/en/us/callie/ivr/8000/ivr-hello.wav</Play>
+        <Record/>
+        <Hangup/>
     </Response>
     */
 
@@ -60,34 +65,16 @@
     $say = new Speak("Press 1");
     $r->append($say);
     $r->append($say);
-    //$r->Respond();
-
-
-    /*
-    <Response>
-        <Speak>Press 1</Speak>
-        <Speak>Press 1</Speak>
-    </Response>
-    */
-
-    // ========================================================================
-    // Creating a Conference Call
-    // See the conferencing docs for more information
-    // http://www.twilio.com/docs/api/twiml/conference
-    $r = new Response();
-    $conf = new Conference('MyRoom',array('startConferenceOnEnter'=>"true"));
-    $r->append($conf);
     $r->Respond();
 
+
     /*
     <Response>
-        <Dial>
-            <Conference startConferenceOnEnter="True">
-                MyRoom
-            </Conference>
-        </Dial>
+        <Speak>Press 1</Speak>
+        <Speak>Press 1</Speak>
     </Response>
     */
+
 
     // ========================================================================
     // Set any attribute / value pair

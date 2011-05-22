@@ -34,7 +34,7 @@
         $data = $_POST;
     }
 
-    $expected_signature = $_SERVER["HTTP_X_TWILIO_SIGNATURE"];
+    $expected_signature = $_SERVER["HTTP_X_PLIVO_SIGNATURE"];
 
     echo "The request from Plivo";
     if($utils->validateRequest($expected_signature, $url, $data))

@@ -1,23 +1,23 @@
 <?php
     // Include the PHP Plivo Rest library
     require "../plivohelper.php";
-    
+
     $REST_API_URL = 'http://127.0.0.1:8088';
-    
-    // Plivo REST API version 
+
+    // Plivo REST API version
     $ApiVersion = "v0.1";
-    
-    // Set our AccountSid and AuthToken 
+
+    // Set our AccountSid and AuthToken
     $AccountSid = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
     $AuthToken = "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY";
-    
-    // Instantiate a new Twilio Rest Client 
+
+    // Instantiate a new Plivo Rest Client
     $client = new PlivoRestClient($REST_API_URL, $AccountSid, $AuthToken, $ApiVersion);
-    
+
     // ========================================================================
-    #Define Channel Variable - http://wiki.freeswitch.org/wiki/Channel_Variables
+    # Define Channel Variable - http://wiki.freeswitch.org/wiki/Channel_Variables
     $originate_dial_string = "bridge_early_media=true,hangup_after_bridge=true";
-    
+
     # Initiate a new outbound call to user/1000 using a HTTP POST
     $call_params = array(
         'Delimiter' => '>', # Delimter for the bulk list
@@ -34,7 +34,7 @@
     #    'TimeLimit' => '10>30',
     #    'HangupOnRing'=> "0>0",
     );
-    
+
     try {
         // Initiate various calls
         $response = $client->bulk_call($call_params);
@@ -43,9 +43,9 @@
         echo 'Caught exception: ',  $e->getMessage(), "\n";
         exit(0);
     }
-    
+
     // check response for success or error
     if($response->IsError)
-    	echo "Error starting phone calls: {$response->ErrorMessage}\n";
+        echo "Error starting phone calls: {$response->ErrorMessage}\n";
     else
-    	echo "Started calls: {$response->Response->RequestUUID}\n";
+        echo "Started calls: {$response->Response->RequestUUID}\n";
