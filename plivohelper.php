@@ -35,7 +35,7 @@
             $this->HttpStatus = $status;
             if($this->HttpStatus != 204)
                 $this->Response = @json_decode($text);
-                
+
             if($this->IsError = ($status >= 400)) {
               if($status == 401) {
                 $this->ErrorMessage = "Authentication required";
@@ -154,7 +154,7 @@
                 fclose($fp);
             if(strlen($tmpfile))
                 unlink($tmpfile);
-            
+
             return new PlivoRestResponse($url, $result, $responseCode);
         }
 
@@ -584,7 +584,7 @@
     */
     class Wait extends Grammar {
 
-        protected $valid = array('length');
+        protected $valid = array('length', 'transferEnabled');
 
         /**
         * Wait Constructor
