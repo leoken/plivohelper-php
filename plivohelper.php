@@ -167,7 +167,7 @@
 
         // REST Bulk Call Helper
         public function bulk_call($vars = array()) {
-            $path = "$this->ApiVersion/BulkCalls/";
+            $path = "$this->ApiVersion/BulkCall/";
             $method = "POST";
             return $this->request($path, $method, $vars);
         }
@@ -324,10 +324,6 @@
 
         function addConference($body=NULL, $attr = array()){
             return self::append(new Conference($body, $attr));
-        }
-
-        function addSms($body=NULL, $attr = array()){
-            return self::append(new Sms($body, $attr));
         }
 
         function addRecordSession($attr = array()){
@@ -731,31 +727,6 @@
             parent::__construct($room, $attr);
          }
 
-    }
-    /**
-    * The <Sms> grammar sends an SMS message to a phone number during a phone call.
-    */
-    class Sms extends Grammar {
-        protected $valid = array('to', 'from', 'action', 'method', 'statusCallback');
-
-        /**
-        * SMS Constructor
-        *
-        * Instatiates a new SMS object with room and optional attributes.
-        * Possible attributes are:
-        *   "to"    => phone #
-        *   "from"  => sms capable phone #
-        *   "action"    => true|false (default: true)
-        *   "method"    => 'GET'|'POST', (default: POST)
-        *   "statusCallback"    => relative or absolute URL
-        *
-        * @param string $message SMS message to send
-        * @param array $attr Optional attributes
-        * @return SMS
-        */
-         function __construct($message = '', $attr = array()){
-            parent::__construct($message, $attr);
-         }
     }
     /**
     * The <RecordSession> grammar records the session during a phone call.
