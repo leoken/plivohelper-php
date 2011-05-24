@@ -32,6 +32,7 @@
     $r->addSpeak("Hello World", array("loop" => "10"));
     $r->addDial("4155551212", array("timeLimit" => "45"));
     $r->addPlay("http://www.mp3.com");
+    $r->addHangup(array("schedule" => "45"));
     $r->Respond();
 
     // ========================================================================
@@ -42,7 +43,7 @@
     $g->addPlay("/usr/local/freeswitch/sounds/en/us/callie/ivr/8000/ivr-hello.wav", array("loop" => "10"));
     $r->addWait(array("length" => "5", "transferEnabled" => "true"));
     $r->addPlay("/usr/local/freeswitch/sounds/en/us/callie/ivr/8000/ivr-hello.wav", array("loop" => "10"));
-    $r->addRecord();
+    $r->addRecord(array("bothLegs" => "true"));
     $r->addredirect();
     $r->Respond();
 
