@@ -310,8 +310,8 @@
             return self::append(new Record($attr));
         }
 
-        function addHangup(){
-            return self::append(new Hangup());
+        function addHangup($attr = array()){
+            return self::append(new Hangup($attr));
         }
 
         function addRedirect($body=NULL, $attr = array()){
@@ -326,16 +326,8 @@
             return self::append(new Conference($body, $attr));
         }
 
-        function addRecordSession($attr = array()){
-            return self::append(new RecordSession(NULL, $attr));
-        }
-
         function addPreAnswer($attr = array()){
             return self::append(new PreAnswer(NULL, $attr));
-        }
-
-        function addScheduleHangup($attr = array()){
-            return self::append(new ScheduleHangup(NULL, $attr));
         }
 
         /*
@@ -366,8 +358,7 @@
         private $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response></Response>";
 
         protected $nesting = array('Speak', 'Play', 'GetDigits', 'Record',
-            'Dial', 'Redirect', 'Wait', 'Hangup', 'Sms', 'RecordSession',
-            'PreAnswer', 'ScheduleHangup', 'Conference');
+            'Dial', 'Redirect', 'Wait', 'Hangup', 'PreAnswer', 'Conference');
 
         function __construct(){
             parent::__construct(NULL);
@@ -423,36 +414,6 @@
         }
     }
     /**
-    * The <Reject> grammar rejects an incoming call to your Plivo number without
-    * billing you. This is very useful for blocking unwanted calls.
-    * If the first grammar in a RESTXML document is <Reject>, Plivo will not pick
-    * up the call. The call ends with a status of 'busy' or 'no-answer',
-    * depending on the grammar's 'reason' attribute. Any grammar elements after
-    * <Reject> are unreachable and ignored.
-    *
-    * Note that using <Reject> as the first grammar in your response is the only
-    * way to prevent Plivo from answering a call. Any other response will
-    * result in an answered call and your account will be billed.
-    */
-    class Reject extends Grammar {
-
-        protected $valid = array('reason');
-
-        /**
-        * Reject Constructor
-        *
-        * Instatiates a new Reject object with optional attributes.
-        * Possible attributes are:
-        *   "reason" => 'rejected'|'busy',
-        *
-        * @param array $attr Optional attributes, defaults to 'rejected'
-        * @return Reject
-        */
-        function __construct($attr = array()) {
-            parent::__construct($attr);
-        }
-    }
-    /**
     * The <Play> grammar plays an audio file back to the caller.
     * Plivo retrieves the file from a URL that you provide.
     */
@@ -485,8 +446,8 @@
     class Record extends Grammar {
 
         protected $valid = array('action','method','timeout','finishOnKey',
-                                 'maxLength','transcribe','transcribeCallback',
-                                 'playBeep', 'format', 'filePath', 'prefix');
+                                 'maxLength', 'bothLegs', 'playBeep',
+                                 'format', 'filePath', 'prefix');
 
         /**
         * Record Constructor
@@ -605,17 +566,21 @@
     */
     class Hangup extends Grammar {
 
+        protected $valid = array('reason', 'schedule');
+
         /**
         * Hangup Constructor
         *
-        * Instatiates a new Hangup object.
+        * Instatiates a new Hangup object object with optional attributes.
+        * Possible attributes are:
+        *   "reason" => 'rejected'|'busy'
+        *   "schedule" => '25'
         *
         * @return Hangup
         */
-        function __construct() {
-            parent::__construct(NULL, array());
+        function __construct($attr = array()) {
+            parent::__construct(NULL, $attr);
         }
-
 
     }
 
@@ -729,27 +694,7 @@
 
     }
     /**
-    * The <RecordSession> grammar records the session during a phone call.
-    */
-    class RecordSession extends Grammar {
-        protected $valid = array('prefix', 'format', 'filePath');
-
-         function __construct($message = '', $attr = array()){
-            parent::__construct($message, $attr);
-         }
-    }
-    /**
-    * The <ScheduleHangup> grammar sets up the call to be scheduled for hangup after a certain time.
-    */
-    class ScheduleHangup extends Grammar {
-        protected $valid = array('time');
-
-         function __construct($message = '', $attr = array()){
-            parent::__construct($message, $attr);
-         }
-    }
-    /**
-    * The <PreAnswer> grammar sets up the call to be scheduled for hangup after a certain time.
+    * The <PreAnswer> grammar answers the call in early media mode.
     */
     class PreAnswer extends Grammar {
         protected $valid = array('time');
