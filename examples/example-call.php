@@ -16,7 +16,7 @@
 
     // ========================================================================
     # Define Channel Variable - http://wiki.freeswitch.org/wiki/Channel_Variables
-    $originate_dial_string = "bridge_early_media=true,hangup_after_bridge=true";
+    $extra_dial_string = "bridge_early_media=true,hangup_after_bridge=true";
 
     # Initiate a new outbound call to user/1000 using a HTTP POST
     $call_params = array(
@@ -26,9 +26,9 @@
         'GatewayCodecs' => "'PCMA,PCMU'", # Codec string as needed by FS for each gateway separated by comma
         'GatewayTimeouts' => "60",      # Seconds to timeout in string for each gateway separated by comma
         'GatewayRetries' => "1", # Retry String for Gateways separated by comma, on how many times each gateway should be retried
-        'OriginateDialString' => $originate_dial_string,
+        'ExtraDialString' => $extra_dial_string,
         'AnswerUrl' => "http://127.0.0.1:5000/answered/",
-        'HangUpUrl' => "http://127.0.0.1:5000/hangup/",
+        'HangupUrl' => "http://127.0.0.1:5000/hangup/",
         'RingUrl' => "http://127.0.0.1:5000/ringing/"
     );
 
