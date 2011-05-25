@@ -669,20 +669,36 @@
     class Conference extends Grammar {
 
         protected $valid = array('muted','beep','startConferenceOnEnter',
-            'endConferenceOnExit','waitUrl','waitMethod');
+            'endConferenceOnExit','waitSound','enterSound', 'exitSound',
+            'timeLimit', 'hangupOnStar', 'maxMembers');
 
         /**
         * Conference Constructor
         *
         * Instatiates a new Conference object with room and optional attributes.
         * Possible attributes are:
-        *   "muted" => true|false, (default: false)
-        *   "beef"  => true|false, (default: true)
-        *   "startConferenceOnEnter"    => true|false (default: true)
-        *   "endConferenceOnExit"   => true|false (default: false)
-        *   "waitUrl"   => RESTXML url, empty string, (default: Plivo hold music)
-        *   "waitMethod"    => 'GET'|'POST', (default: POST)
-        *   "maxParticipants"   => integer > 0 && <= 40 (default: 40)
+        *   waitSound: sound to play while alone in conference
+        *       (default no sound)
+        *   muted: enter conference muted
+        *       (default false)
+        *   startConferenceOnEnter: the conference start when this member joins
+        *       (default true)
+        *   endConferenceOnExit: close conference after this member leaves
+        *       (default false)
+        *   maxMembers: max members in conference
+        *       (0 for max : 200)
+        *   enterSound: if "", disabled
+        *       if beep:1, play one beep when a member enters
+        *       if beep:2 play two beeps when a member enters
+        *       (default "")
+        *   exitSound: if "", disabled
+        *       if beep:1, play one beep when a member exits
+        *       if bep:2 play two beeps when a member exits
+        *       (default "")
+        *   timeLimit: max time before closing conference
+        *       (default 14400 seconds)
+        *   hangupOnStar: exit conference when member press '*'
+        *       (default false)
         *
         * @param string $room Conference room to join
         * @param array $attr Optional attributes
