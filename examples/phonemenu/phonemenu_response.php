@@ -33,7 +33,7 @@ switch($destination) {
 		break;
 	case 'location':
 		$r->append(new Speak("Initech is located at 101 4th St in San Francisco California"));
-		$g = $r->append(new Gather(array('action' => 'http://' . dirname($_SERVER["SERVER_NAME"] .  $_SERVER['PHP_SELF']) . '/phonemenu.php?node=location', 'numDigits' => '1')));
+		$g = $r->append(new GetDigits(array('action' => 'http://' . dirname($_SERVER["SERVER_NAME"] .  $_SERVER['PHP_SELF']) . '/phonemenu.php?node=location', 'numDigits' => '1')));
 		$g->append(new Speak("For directions from the East Bay, press 1"));
 		$g->append(new Speak("For directions from San Jose, press 2"));
 		break;
@@ -51,7 +51,7 @@ switch($destination) {
 		$r->append(new Dial("NNNNNNNNNN"));
 		break;
 	default:
-		$g = $r->append(new Gather(array('action' => 'http://' . dirname($_SERVER["SERVER_NAME"] .  $_SERVER['PHP_SELF']) . '/phonemenu.php?node=default', 'numDigits' => '1')));
+		$g = $r->append(new GetDigits(array('action' => 'http://' . dirname($_SERVER["SERVER_NAME"] .  $_SERVER['PHP_SELF']) . '/phonemenu.php?node=default', 'numDigits' => '1')));
 		$g->append(new Speak("Hello and welcome to the Initech Phone Menu"));
 		$g->append(new Speak("For business hours, press 1"));
 		$g->append(new Speak("For directions, press 2"));
@@ -63,8 +63,8 @@ switch($destination) {
 
 // @start snippet
 if($destination && $destination != 'receptionist') {
-	$r->append(new Pause());
-	$r->append(new Say("Main Menu"));
+	$r->append(new Wait());
+	$r->append(new Speak("Main Menu"));
 	$r->append(new Redirect($url));
 }
 // @end snippet

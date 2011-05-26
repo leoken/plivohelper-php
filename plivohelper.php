@@ -212,13 +212,13 @@
     // ========================================================================
 
     /*
-     * Grammar: Base class for all RESTXML grammar elements used in creating Responses
+     * Element: Base class for all RESTXML element elements used in creating Responses
      * Throws a PlivoException if an non-supported attribute or
-     * attribute value is added to the grammar. All methods in Grammar are protected
+     * attribute value is added to the element. All methods in Element are protected
      * or private
      */
 
-    class Grammar {
+    class Element {
         private $tag;
         private $body;
         private $attr;
@@ -226,8 +226,8 @@
 
         /*
          * __construct
-         *   $body : Grammar contents
-         *   $body : Grammar attributes
+         *   $body : Element contents
+         *   $body : Element attributes
          */
         function __construct($body=NULL, $attr = array()) {
             if (is_array($body)) {
@@ -245,7 +245,7 @@
          * addAttributes
          *     $attr  : A key/value array of attributes to be added
          *     $valid : A key/value array containging the accepted attributes
-         *     for this grammar
+         *     for this element
          *     Throws an exception if an invlaid attribute is found
          */
         private function addAttributes($attr) {
@@ -260,25 +260,25 @@
 
         /*
          * append
-         *     Nests other grammar elements inside self.
+         *     Nests other element elements inside self.
          */
-        function append($grammar) {
+        function append($element) {
             if (!isset($this->nesting) or is_null($this->nesting))
                 throw new PlivoException($this->tag ." doesn't support nesting");
-            else if(!is_object($grammar))
-                throw new PlivoException($grammar->tag . " is not an object");
-            else if(!in_array(get_class($grammar), $this->nesting))
-                throw new PlivoException($grammar->tag . " is not an allowed grammar here");
+            else if(!is_object($element))
+                throw new PlivoException($element->tag . " is not an object");
+            else if(!in_array(get_class($element), $this->nesting))
+                throw new PlivoException($element->tag . " is not an allowed element here");
             else {
-                $this->children[] = $grammar;
-                return $grammar;
+                $this->children[] = $element;
+                return $element;
             }
         }
 
         /*
          * set
          *     $attr  : An attribute to be added
-         *    $valid : The attrbute value for this grammar
+         *    $valid : The attrbute value for this element
          *     No error checking here
          */
         function set($key, $value){
@@ -332,9 +332,9 @@
 
         /*
          * write
-         * Output the XML for this grammar and all it's children
-         *    $parent: This grammar's parent grammar
-         *    $writeself : If FALSE, Grammar will not output itself,
+         * Output the XML for this element and all it's children
+         *    $parent: This element's parent element
+         *    $writeself : If FALSE, Element will not output itself,
          *    only its children
          */
         protected function write($parent, $writeself=TRUE){
@@ -353,7 +353,7 @@
 
     }
 
-    class Response extends Grammar {
+    class Response extends Element {
 
         private $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response></Response>";
 
@@ -390,10 +390,10 @@
 
     }
     /**
-    * The <Speak> grammar converts text to speech that is read back to the caller.
+    * The <Speak> element converts text to speech that is read back to the caller.
     * <Speak> is useful for development or saying dynamic text that is difficult to pre-record.
     */
-    class Speak extends Grammar {
+    class Speak extends Element {
 
         protected $valid = array('voice','language','loop', 'engine', 'method', 'type');
         /**
@@ -414,10 +414,10 @@
         }
     }
     /**
-    * The <Play> grammar plays an audio file back to the caller.
+    * The <Play> element plays an audio file back to the caller.
     * Plivo retrieves the file from a URL that you provide.
     */
-    class Play extends Grammar {
+    class Play extends Element {
 
         protected $valid = array('loop');
 
@@ -438,14 +438,14 @@
     }
 
     /**
-    * The <Record> grammar records the caller's voice and returns to you the URL
+    * The <Record> element records the caller's voice and returns to you the URL
     * of a file containing the audio recording. You can optionally generate
     * text transcriptions of recorded calls by setting the 'transcribe'
-    * attribute of the <Record> grammar to 'true'.
+    * attribute of the <Record> element to 'true'.
     */
-    class Record extends Grammar {
+    class Record extends Element {
 
-        protected $valid = array('action','method','timeout','finishOnKey',
+        protected $valid = array('timeout','finishOnKey',
                                  'maxLength', 'bothLegs', 'playBeep',
                                  'format', 'filePath', 'prefix');
 
@@ -472,17 +472,17 @@
     }
 
     /**
-    * The <Dial> grammar connects the current caller to an another phone.
+    * The <Dial> element connects the current caller to an another phone.
     * If the called party picks up, the two parties are connected and can
     * communicate until one hangs up. If the called party does not pick up,
     *  if a busy signal is received, or if the number doesn't exist,
-    * the dial grammar will finish.
+    * the dial element will finish.
     *
     * When the dialed call ends, Plivo makes a GET or POST request to
     * the 'action' URL if provided. Call flow will continue using
     * the RESTXML received in response to that request.
     */
-    class Dial extends Grammar {
+    class Dial extends Element {
 
         protected $valid = array('action','method','timeout','hangupOnStar',
             'timeLimit','callerId', 'confirmSound', 'dialMusic', 'confirmKey');
@@ -511,10 +511,10 @@
 
     }
     /**
-    * The <Redirect> grammar transfers control of a call to the RESTXML at a
-    * different URL. All grammar elements after <Redirect> are unreachable and ignored.
+    * The <Redirect> element transfers control of a call to the RESTXML at a
+    * different URL. All element elements after <Redirect> are unreachable and ignored.
     */
-    class Redirect extends Grammar {
+    class Redirect extends Element {
 
         protected $valid = array('method');
 
@@ -535,11 +535,11 @@
 
     }
     /**
-    * The <Wait> grammar waits silently for a specific number of seconds.
-    * If <Wait> is the first grammar in a RESTXML document, Plivo will wait
+    * The <Wait> element waits silently for a specific number of seconds.
+    * If <Wait> is the first element in a RESTXML document, Plivo will wait
     * the specified number of seconds before picking up the call.
     */
-    class Wait extends Grammar {
+    class Wait extends Element {
 
         protected $valid = array('length', 'transferEnabled');
 
@@ -559,12 +559,12 @@
 
     }
     /**
-    * The <Hangup> grammar ends a call. If used as the first grammar in a RESTXML
+    * The <Hangup> element ends a call. If used as the first element in a RESTXML
     * response it does not prevent Plivo from answering the call and billing
     * your account. The only way to not answer a call and prevent billing
-    * is to use the <Reject> grammar.
+    * is to use the <Reject> element.
     */
-    class Hangup extends Grammar {
+    class Hangup extends Element {
 
         protected $valid = array('reason', 'schedule');
 
@@ -585,19 +585,19 @@
     }
 
     /**
-    * The <GetDigits> grammar collects digits that a caller enters into his or her
+    * The <GetDigits> element collects digits that a caller enters into his or her
     * telephone keypad. When the caller is done entering data, Plivo submits
     * that data to the provided 'action' URL in an HTTP GET or POST request,
     * just like a web browser submits data from an HTML form.
     * If no input is received before timeout, <GetDigits> falls through to the
-    * next grammar in the RESTXML document.
+    * next element in the RESTXML document.
     *
-    * You may optionally nest <Speak> and <Play> within a <GetDigits> grammar while
+    * You may optionally nest <Speak> and <Play> within a <GetDigits> element while
     * waiting for input. This allows you to read menu options to the caller
     * while letting her enter a menu selection at any time. After the first
     * digit is received the audio will stop playing.
     */
-    class GetDigits extends Grammar {
+    class GetDigits extends Element {
 
         protected $valid = array('action','method','timeout','finishOnKey',
             'numDigits', 'tries', 'invalidDigitsSound', 'validDigits', 'playBeep');
@@ -623,17 +623,17 @@
 
     }
     /**
-    * The <Dial> grammar's <Number> noun specifies a phone number to dial.
+    * The <Dial> element's <Number> noun specifies a phone number to dial.
     * Using the noun's attributes you can specify particular behaviors
     * that Plivo should apply when dialing the number.
     *
-    * You can use multiple <Number> nouns within a <Dial> grammar to simultaneously
+    * You can use multiple <Number> nouns within a <Dial> element to simultaneously
     *  call all of them at once. The first call to pick up is connected
     * to the current call and the rest are hung up.
     */
-    class Number extends Grammar {
+    class Number extends Element {
 
-        protected $valid = array('url','sendDigits', 'gateways', 'gatewayCodecs',
+        protected $valid = array('sendDigits', 'gateways', 'gatewayCodecs',
                                 'gatewayTimeouts', 'gatewayRetries', 'extraDialString');
 
          /**
@@ -642,7 +642,6 @@
         * Instatiates a new Number object with optional attributes.
         * Possible attributes are:
         *   "sendDigits"    => any digits
-        *   "url"   => any url
         *
         * @param string $number Number you wish to dial
         * @param array $attr Optional attributes
@@ -654,7 +653,7 @@
 
     }
     /**
-    * The <Dial> grammar's <Conference> noun allows you to connect to a conference
+    * The <Dial> element's <Conference> noun allows you to connect to a conference
     * room. Much like how the <Number> noun allows you to connect to another
     * phone number, the <Conference> noun allows you to connect to a named
     * conference room and talk with the other callers who have also connected
@@ -666,7 +665,7 @@
     * different accounts would not. The maximum number of participants in a
     * single Plivo conference room is 40.
     */
-    class Conference extends Grammar {
+    class Conference extends Element {
 
         protected $valid = array('muted','beep','startConferenceOnEnter',
             'endConferenceOnExit','waitSound','enterSound', 'exitSound',
@@ -693,7 +692,7 @@
         *       (default "")
         *   exitSound: if "", disabled
         *       if beep:1, play one beep when a member exits
-        *       if bep:2 play two beeps when a member exits
+        *       if beep:2 play two beeps when a member exits
         *       (default "")
         *   timeLimit: max time before closing conference
         *       (default 14400 seconds)
@@ -710,9 +709,9 @@
 
     }
     /**
-    * The <PreAnswer> grammar answers the call in early media mode.
+    * The <PreAnswer> element answers the call in early media mode.
     */
-    class PreAnswer extends Grammar {
+    class PreAnswer extends Element {
         protected $valid = array('time');
 
         protected $nesting = array('Speak', 'Play', 'Wait', 'GetDigits');
