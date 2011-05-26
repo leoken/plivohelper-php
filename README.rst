@@ -37,6 +37,7 @@ Files
 
 **examples/example-utils.php:** example usage of utilities
 
+**examples/phonemenu/
 
 
 Credits
