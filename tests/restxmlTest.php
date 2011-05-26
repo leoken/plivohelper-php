@@ -130,14 +130,6 @@ Then run the test suit :
             $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
         }
 
-        public function testRecordConvienceMethod(){
-            $r = new Response();
-            #$r->append(new Record(array("transcribeCallback" => "example.com")));
-            $r->addRecord(array("transcribeCallback" => "example.com"));
-            $expected = '<?xml version="1.0" encoding="UTF-8"?><Response><Record transcribeCallback="example.com"></Record></Response>';
-            $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
-        }
-
         public function testRecordAddAttribute(){
             $r = new Response();
             $re = new Record();
@@ -389,43 +381,6 @@ Then run the test suit :
             $this->setExpectedException('PlivoException');
             new GetDigits(array("foo" => "bar"));
         }
-
-        //Test Sms Element
-        public function testSms() {
-            $r = new Response();
-            $r->append(new Sms("Hello World"));
-            $expected = '<Response><Sms>Hello World</Sms></Response>';
-            $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
-        }
-
-        public function testSmsConvience() {
-            $r = new Response();
-            $r->addSms("Hello World");
-            $expected = '<Response><Sms>Hello World</Sms></Response>';
-            $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
-        }
-
-        public function testSmsAddAttribute(){
-            $r = new Response();
-            $re = new Sms();
-            $re->set("foo", "bar");
-            $r->append($re);
-            $expected = '<Response><Sms foo="bar"></Sms></Response>';
-            $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
-        }
-
-        public function testSmsBadAppend() {
-            $this->setExpectedException('PlivoException');
-            $r = new Sms();
-            $r->append(new Dial());
-        }
-
-        public function testSmsAddBadAttribute(){
-            $this->setExpectedException('PlivoException');
-            new Sms(array("foo" => "bar"));
-        }
-
-
     }
 
 ?>
