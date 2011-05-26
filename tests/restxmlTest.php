@@ -27,7 +27,7 @@ Then run the test suit :
             $r = new $verb($attr = array("foo" => "bar"));
         }
         
-        // Test Response Grammar
+        // Test Response Element
         public function testResponseEmpty(){
             $r = new Response();
             $expected = '<Response></Response>';
@@ -35,7 +35,7 @@ Then run the test suit :
                 "Should be an empty response");
         }
 
-        // Test Speak Grammar
+        // Test Speak Element
         public function testSpeakBasic() {
             $r = new Response();
             $r->append(new Speak("Hello Monkey"));
@@ -75,7 +75,7 @@ Then run the test suit :
             $this->addBadAttribute("Speak");
         }
 
-        //Test Play Grammar
+        //Test Play Element
         public function testPlayBasic() {
             $r = new Response();
             $r->append(new Play("hello-monkey.mp3"));
@@ -108,7 +108,7 @@ Then run the test suit :
             $this->addBadAttribute("Play");
         }
 
-        //Test Record Grammar
+        //Test Record Element
         public function testRecord() {
             $r = new Response();
             $r->append(new Record());
@@ -158,7 +158,7 @@ Then run the test suit :
             $this->addBadAttribute("Record");
         }
 
-        //Test Redirect Grammar
+        //Test Redirect Element
         public function testRedirect() {
             $r = new Response();
             $r->append(new Redirect());
@@ -192,7 +192,7 @@ Then run the test suit :
             $this->addBadAttribute("Redirect");
         }
 
-        //Test Hangup Grammar
+        //Test Hangup Element
         public function testHangup() {
             $r = new Response();
             $r->append(new Hangup());
@@ -222,7 +222,7 @@ Then run the test suit :
             $r->append(new Dial());
         }
 
-        //Test Wait Grammar
+        //Test Wait Element
         public function testWait() {
             $r = new Response();
             $r->append(new Wait());
@@ -257,7 +257,7 @@ Then run the test suit :
             new Wait(array("foo" => "bar"));
         }
 
-        //Test Dial Grammar
+        //Test Dial Element
         public function testDial() {
             $r = new Response();
             $r->append(new Dial("1231231234"));
@@ -314,7 +314,7 @@ Then run the test suit :
             new Dial(array("foo" => "bar"));
         }
 
-        //Test GetDigits Grammar
+        //Test GetDigits Element
         public function testGetDigits(){
             $r = new Response();
             $r->append(new GetDigits());
@@ -336,7 +336,7 @@ Then run the test suit :
             $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
         }
 
-        public function testGetDigitsNestedGrammars(){
+        public function testGetDigitsNestedElements(){
             $r = new Response();
             $g = $r->append(new GetDigits(array("action"=>"example.com", "method"=>"GET")));
             $g->append(new Speak("Hello World"));
@@ -353,7 +353,7 @@ Then run the test suit :
             $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
         }
 
-        public function testGetDigitsNestedGrammarsConvienceMethods(){
+        public function testGetDigitsNestedElementsConvienceMethods(){
             $r = new Response();
             $g = $r->addGetDigits(array("action"=>"example.com", "method"=>"GET"));
             $g->addSpeak("Hello World");
@@ -390,7 +390,7 @@ Then run the test suit :
             new GetDigits(array("foo" => "bar"));
         }
 
-        //Test Sms Grammar
+        //Test Sms Element
         public function testSms() {
             $r = new Response();
             $r->append(new Sms("Hello World"));

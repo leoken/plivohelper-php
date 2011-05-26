@@ -712,12 +712,12 @@
     * The <PreAnswer> element answers the call in early media mode.
     */
     class PreAnswer extends Element {
-        protected $valid = array('time');
+        protected $valid = array();
 
         protected $nesting = array('Speak', 'Play', 'Wait', 'GetDigits');
 
-         function __construct($message = '', $attr = array()){
-            parent::__construct($message, $attr);
+         function __construct($attr = array()){
+            parent::__construct($attr);
          }
     }
 
