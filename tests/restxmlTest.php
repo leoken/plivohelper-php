@@ -4,16 +4,22 @@ To run this test suit, you will need to install PHPUnit
 for futher information : http://pear.phpunit.de/
 
 On Ubuntu 11.04
-> sudo apt-get remove phpunit
-> sudo pear channel-discover pear.phpunit.de
-> sudo pear channel-discover pear.symfony-project.com
-> sudo pear channel-discover components.ez.no
-> sudo pear update-channels
-> sudo pear upgrade-all
-> sudo pear install --alldeps phpunit/PHPUnit
+sudo apt-get remove phpunit
+sudo pear channel-discover pear.phpunit.de
+sudo pear channel-discover pear.symfony-project.com
+sudo pear channel-discover components.ez.no
+sudo pear update-channels
+sudo pear upgrade-all
+sudo pear install --alldeps phpunit/PHPUnit
+
+On Debian
+pear uninstall phpunit/PHPUnit
+pear channel-discover components.ez.no
+pear channel-discover pear.symfony-project.com
+pear install phpunit/PHPUnit
 
 Then run the test suit :
-> phpunit --verbose restxmlTest.php
+phpunit --verbose restxmlTest.php
 
 */
     // Testing Requires PHPUnit
