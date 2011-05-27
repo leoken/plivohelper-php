@@ -116,13 +116,6 @@ Then run the test suit :
             $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
         }
 
-        public function testRecordActionMethod() {
-            $r = new Response();
-            $r->append(new Record(array("action" => "example.com", "method" => "GET")));
-            $expected = '<Response><Record action="example.com" method="GET"></Record></Response>';
-            $this->assertXmlStringEqualsXmlString($expected, $r->asUrl(False));
-        }
-
         public function testRecordMaxLengthKeyTimeout(){
             $r = new Response();
             $r->append(new Record(array("timeout" => 4, "finishOnKey" => "#", "maxLength" => 30)));
