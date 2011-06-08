@@ -15,14 +15,18 @@
     // Using Speak, Dial, and Play
     $r = new Response();
     $r->append(new Speak("Hello World", array("loop" => "10")));
-    $r->append(new Dial("4155551212", array("timeLimit" => "45")));
+    $g = new Dial(array("timeLimit" => "45"));
+    $g->append(new Number("4155551212"));
+    $r->append($g);
     $r->append(new Play("http://www.mp3.com"));
     $r->Respond();
 
     /* outputs:
     <Response>
         <Speak loop="10">Hello World</Speak>
-        <Dial timeLimit="45">4155551212</Dial>
+        <Dial timeLimit="45">
+            <Number>4155551212</Number>
+        </Dial>
         <Play>http://www.mp3.com</Play>
     </Response>
     */
@@ -30,7 +34,8 @@
     // The same XML can be created above using the convencience methods
     $r = new Response();
     $r->addSpeak("Hello World", array("loop" => "10"));
-    $r->addDial("4155551212", array("timeLimit" => "45"));
+    $g = $r->addDial(array("timeLimit" => "45"));
+    $g->addNumber("4155551212");
     $r->addPlay("http://www.mp3.com");
     $r->addHangup(array("schedule" => "45"));
     $r->Respond();
