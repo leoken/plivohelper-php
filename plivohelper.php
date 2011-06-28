@@ -447,7 +447,7 @@
 
         protected $valid = array('timeout','finishOnKey',
                                  'maxLength', 'bothLegs', 'playBeep',
-                                 'fileformat', 'filePath', 'prefix');
+                                 'fileformat', 'filePath', 'filename');
 
         /**
         * Record Constructor
@@ -670,7 +670,7 @@
         protected $valid = array('muted','beep','startConferenceOnEnter',
             'endConferenceOnExit','waitSound','enterSound', 'exitSound',
             'timeLimit', 'hangupOnStar', 'maxMembers', 'recordFilePath',
-            'recordFileFormat', 'recordFilePrefix');
+            'recordFileFormat', 'recordFilename');
 
         /**
         * Conference Constructor
