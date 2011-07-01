@@ -445,7 +445,7 @@
     */
     class Record extends Element {
 
-        protected $valid = array('timeout','finishOnKey',
+        protected $valid = array('action', 'method', 'timeout','finishOnKey',
                                  'maxLength', 'bothLegs', 'playBeep',
                                  'fileformat', 'filePath', 'filename');
 
@@ -454,13 +454,13 @@
         *
         * Instatiates a new Record object with optional attributes.
         * Possible attributes are:
-        *   "action" =>  relative or absolute url, (default: current url)
+        *   "action" =>  absolute url, 
         *   "method" => 'GET'|'POST', (default: POST)
         *   "timeout" => positive integer, (default: 5)
         *   "finishOnKey"   => any digit, #, * (default: 1234567890*#)
         *   "maxLength" => integer >= 1, (default: 3600, 1hr)
         *   "transcribe" => true|false, (default: false)
-        *   "transcribeCallback" => relative or absolute url
+        *   "transcribeCallback" => absolute url
         *   "playBeep" => true|false, (default: true)
         *
         * @param array $attr Optional attributes
@@ -494,7 +494,7 @@
         *
         * Instatiates a new Dial object with a number and optional attributes.
         * Possible attributes are:
-        *   "action" =>  relative or absolute url
+        *   "action" =>  absolute url
         *   "method" => 'GET'|'POST', (default: POST)
         *   "timeout" => positive integer, (default: 30)
         *   "hangupOnStar"  => true|false, (default: false)
@@ -608,7 +608,7 @@
         *
         * Instatiates a new GetDigits object with optional attributes.
         * Possible attributes are:
-        *   "action" =>  relative or absolute url (default: current url)
+        *   "action" =>  absolute url 
         *   "method" => 'GET'|'POST', (default: POST)
         *   "timeout" => positive integer, (default: 5)
         *   "finishOnKey"   => any digit, #, *, (default: #)
