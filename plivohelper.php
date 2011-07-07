@@ -306,6 +306,10 @@
             return self::append(new GetDigits($attr));
         }
 
+        function addGetSpeech($attr = array()){
+            return self::append(new GetSpeech($attr));
+        }
+
         function addRecord($attr = array()){
             return self::append(new Record($attr));
         }
@@ -358,7 +362,7 @@
         private $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response></Response>";
 
         protected $nesting = array('Speak', 'Play', 'GetDigits', 'Record',
-            'Dial', 'Redirect', 'Wait', 'Hangup', 'PreAnswer', 'Conference');
+            'Dial', 'Redirect', 'Wait', 'Hangup', 'PreAnswer', 'Conference', 'GetSpeech');
 
         function __construct(){
             parent::__construct(NULL);
@@ -710,12 +714,35 @@
 
     }
     /**
+    * The <GetSpeech> element collects speech from caller voice
+    * If no input is received before timeout, <GetSpeech> falls through to the
+    * next element in the RESTXML document.
+    *
+    * You may optionally nest <Speak> and <Play> within a <GetDigits> element while
+    * waiting for input.
+    */
+    class GetSpeech extends Element {
+
+        protected $valid = array('action','method','timeout', 'engine', 'grammar', 'playBeep');
+
+        protected $nesting = array('Speak', 'Play', 'Wait');
+        /**
+        * GetSpeech Constructor
+        * @param array $attr Optional attributes
+        * @return GetSpeech
+        */
+        function __construct($attr = array()){
+            parent::__construct(NULL, $attr);
+        }
+
+    }
+    /**
     * The <PreAnswer> element answers the call in early media mode.
     */
     class PreAnswer extends Element {
         protected $valid = array();
 
-        protected $nesting = array('Speak', 'Play', 'Wait', 'GetDigits');
+        protected $nesting = array('Speak', 'Play', 'Wait', 'GetDigits', 'GetSpeech');
 
          function __construct($attr = array()){
             parent::__construct($attr);
