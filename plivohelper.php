@@ -489,7 +489,7 @@
     class Dial extends Element {
 
         protected $valid = array('action','method','timeout','hangupOnStar',
-            'timeLimit','callerId', 'confirmSound', 'dialMusic', 'confirmKey');
+    'timeLimit','callerId', 'confirmSound', 'dialMusic', 'confirmKey', 'redirect');
 
         protected $nesting = array('Number');
 
@@ -504,6 +504,8 @@
         *   "hangupOnStar"  => true|false, (default: false)
         *   "timeLimit" => integer >= 0, (default: 14400, 4hrs)
         *   "callerId" => valid phone #, (default: Caller's callerid)
+	*   "redirect" => true|false, if 'false', don't redirect to 'action', only request url 
+        *	and continue to next element. (default 'true')
         *
         * @param string|Number|Conference $number The number or conference you wish to call
         * @param array $attr Optional attributes
@@ -674,7 +676,8 @@
         protected $valid = array('muted','beep','startConferenceOnEnter',
             'endConferenceOnExit','waitSound','enterSound', 'exitSound',
             'timeLimit', 'hangupOnStar', 'maxMembers', 'recordFilePath',
-            'recordFileFormat', 'recordFilename');
+            'recordFileFormat', 'recordFilename', 'action', 'method',
+	    'callbackUrl', 'callbackMethod', 'digitsMatch');
 
         /**
         * Conference Constructor
@@ -703,6 +706,14 @@
         *       (default 14400 seconds)
         *   hangupOnStar: exit conference when member press '*'
         *       (default false)
+    	*   action: redirect to this URL after leaving conference
+    	*   method: submit to 'action' url using GET or POST
+    	*   callbackUrl: url to request when call enters/leaves conference
+                or has pressed digits matching (digitsMatch)
+    	*   callbackMethod: submit to 'callbackUrl' url using GET or POST
+    	*   digitsMatch: a list of matching digits to send with callbackUrl
+                Can be a list of digits patterns separated by comma.
+
         *
         * @param string $room Conference room to join
         * @param array $attr Optional attributes
