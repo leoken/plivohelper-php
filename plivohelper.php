@@ -206,6 +206,90 @@
             $method = "POST";
             return $this->request($path, $method, $vars);
         }
+
+        // REST Conference Mute helper
+    	public function conference_mute($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceMute/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference Unmute helper
+	public function conference_unmute($vars = array()) {
+	   $path = "$this->ApiVersion/ConferenceUnmute/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference Kick helper
+	public function conference_kick($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceKick/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference Hangup helper
+	public function conference_hangup($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceHangup/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference Deaf helper
+	public function conference_deaf($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceDeaf/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference Undeaf helper
+	public function conference_undeaf($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceUndeaf/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference RecordStart helper
+	public function conference_record_start($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceRecordStart/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference RecordStop
+	public function conference_record_stop($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceRecordStop/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference Play helper
+	public function conference_play($vars = array()) {
+           $path = "$this->ApiVersion/ConferencePlay/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference Speak helper
+	public function conference_speak($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceSpeak/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference List Helper
+	public function conference_list($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceList/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST Conference List Members Helper
+	public function conference_list_members($vars = array()) {
+           $path = "$this->ApiVersion/ConferenceListMembers/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
     }
 
     // RESTXML Response Helpers
