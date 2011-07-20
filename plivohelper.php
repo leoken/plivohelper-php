@@ -207,6 +207,20 @@
             return $this->request($path, $method, $vars);
         }
 
+        // REST RecordStart helper
+	public function record_start($vars = array()) {
+           $path = "$this->ApiVersion/RecordStart/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
+        // REST RecordStop
+	public function record_stop($vars = array()) {
+           $path = "$this->ApiVersion/RecordStop/";
+           $method = "POST";
+           return $this->request($path, $method, $vars);
+	}
+
         // REST Conference Mute helper
     	public function conference_mute($vars = array()) {
            $path = "$this->ApiVersion/ConferenceMute/";
