@@ -158,6 +158,13 @@
             return new PlivoRestResponse($url, $result, $responseCode);
         }
 
+        // REST Reload Plivo Config Helper
+        public function reload_config($vars = array()) {
+            $path = "$this->ApiVersion/ReloadConfig/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
+
         // REST Call Helper
         public function call($vars = array()) {
             $path = "$this->ApiVersion/Call/";
