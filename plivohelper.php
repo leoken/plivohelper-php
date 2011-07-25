@@ -556,7 +556,7 @@
 
         protected $valid = array('action', 'method', 'timeout','finishOnKey',
                                  'maxLength', 'bothLegs', 'playBeep',
-                                 'fileformat', 'filePath', 'filename');
+                                 'fileformat', 'filePath', 'fileName');
 
         /**
         * Record Constructor
@@ -594,7 +594,8 @@
     class Dial extends Element {
 
         protected $valid = array('action','method','timeout','hangupOnStar',
-    'timeLimit','callerId', 'confirmSound', 'dialMusic', 'confirmKey', 'redirect');
+    'timeLimit', 'callerId', 'confirmSound', 'dialMusic', 'confirmKey', 'redirect',
+    'callbackUrl', 'callbackMethod');
 
         protected $nesting = array('Number');
 
@@ -781,7 +782,7 @@
         protected $valid = array('muted','beep','startConferenceOnEnter',
             'endConferenceOnExit','waitSound','enterSound', 'exitSound',
             'timeLimit', 'hangupOnStar', 'maxMembers', 'recordFilePath',
-            'recordFileFormat', 'recordFilename', 'action', 'method',
+            'recordFileFormat', 'recordFileName', 'action', 'method',
 	    'callbackUrl', 'callbackMethod', 'digitsMatch');
 
         /**
