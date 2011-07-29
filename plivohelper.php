@@ -179,6 +179,13 @@
             return $this->request($path, $method, $vars);
         }
 
+        // REST Group Call Helper
+        public function group_call($vars = array()) {
+            $path = "$this->ApiVersion/GroupCall/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
+
         // REST Transfer Live Call Helper
         public function transfer_call($vars = array()) {
             $path = "$this->ApiVersion/TransferCall/";
