@@ -193,18 +193,18 @@
             return $this->request($path, $method, $vars);
         }
 
-        // REST Hangup Live Call Helper
-        public function hangup_call($vars = array()) {
-            $path = "$this->ApiVersion/HangupCall/";
-            $method = "POST";
-            return $this->request($path, $method, $vars);
-        }
-
         // REST Hangup All Live Calls Helper
         public function hangup_all_calls() {
             $path = "$this->ApiVersion/HangupAllCalls/";
             $method = "POST";
             return $this->request($path, $method);
+        }
+
+        // REST Hangup Live Call Helper
+        public function hangup_call($vars = array()) {
+            $path = "$this->ApiVersion/HangupCall/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
         }
 
         // REST Schedule Hangup Helper
@@ -234,6 +234,27 @@
            $method = "POST";
            return $this->request($path, $method, $vars);
 	}
+
+        // REST Play something on a Call Helper
+        public function play($vars = array()) {
+            $path = "$this->ApiVersion/Play/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
+
+        // REST Schedule Play Helper
+        public function schedule_play($vars = array()) {
+            $path = "$this->ApiVersion/SchedulePlay/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
+
+        // REST Cancel a Scheduled Play Helper
+        public function cancel_scheduled_play($vars = array()) {
+            $path = "$this->ApiVersion/CancelScheduledPlay/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
 
         // REST Conference Mute helper
     	public function conference_mute($vars = array()) {
