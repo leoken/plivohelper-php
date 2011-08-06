@@ -623,7 +623,7 @@
 
         protected $valid = array('action','method','timeout','hangupOnStar',
     'timeLimit', 'callerId', 'confirmSound', 'dialMusic', 'confirmKey', 'redirect',
-    'callbackUrl', 'callbackMethod');
+    'callbackUrl', 'callbackMethod', 'digitsMatch');
 
         protected $nesting = array('Number');
 
