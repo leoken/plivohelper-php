@@ -681,7 +681,7 @@
     */
     class Wait extends Element {
 
-        protected $valid = array('length', 'transferEnabled');
+        protected $valid = array('length');
 
         /**
         * Wait Constructor
