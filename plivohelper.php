@@ -584,7 +584,7 @@
 
         protected $valid = array('action', 'method', 'timeout','finishOnKey',
                                  'maxLength', 'bothLegs', 'playBeep',
-                                 'fileformat', 'filePath', 'fileName');
+                                 'fileFormat', 'filePath', 'fileName');
 
         /**
         * Record Constructor
@@ -596,8 +596,6 @@
         *   "timeout" => positive integer, (default: 5)
         *   "finishOnKey"   => any digit, #, * (default: 1234567890*#)
         *   "maxLength" => integer >= 1, (default: 3600, 1hr)
-        *   "transcribe" => true|false, (default: false)
-        *   "transcribeCallback" => absolute url
         *   "playBeep" => true|false, (default: true)
         *
         * @param array $attr Optional attributes
@@ -623,7 +621,7 @@
 
         protected $valid = array('action','method','timeout','hangupOnStar',
     'timeLimit', 'callerId', 'confirmSound', 'dialMusic', 'confirmKey', 'redirect',
-    'callbackUrl', 'callbackMethod');
+    'callbackUrl', 'callbackMethod', 'digitsMatch');
 
         protected $nesting = array('Number');
 
