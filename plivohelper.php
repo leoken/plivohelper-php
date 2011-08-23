@@ -263,6 +263,20 @@
             return $this->request($path, $method, $vars);
         }
 
+        // REST Add soundtouch audio effects to a Call Helper
+        public function sound_touch($vars = array()) {
+            $path = "$this->ApiVersion/SoundTouch/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
+
+        // REST Remove soundtouch audio effects on a Call Helper
+        public function sound_touch_stop($vars = array()) {
+            $path = "$this->ApiVersion/SoundTouchStop/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
+
         // REST Conference Mute helper
     	public function conference_mute($vars = array()) {
            $path = "$this->ApiVersion/ConferenceMute/";
