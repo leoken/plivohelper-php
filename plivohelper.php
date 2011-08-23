@@ -242,6 +242,13 @@
             return $this->request($path, $method, $vars);
         }
 
+        // REST PlayStop something on a Call Helper
+        public function play_stop($vars = array()) {
+            $path = "$this->ApiVersion/PlayStop/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
+
         // REST Schedule Play Helper
         public function schedule_play($vars = array()) {
             $path = "$this->ApiVersion/SchedulePlay/";
@@ -455,6 +462,10 @@
             return self::append(new Redirect($body, $attr));
         }
 
+        function addSIPTransfer($body=NULL, $attr = array()){
+            return self::append(new SIPTransfer($body, $attr));
+        }
+
         function addWait($attr = array()){
             return self::append(new Wait($attr));
         }
@@ -495,7 +506,7 @@
         private $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response></Response>";
 
         protected $nesting = array('Speak', 'Play', 'GetDigits', 'Record',
-            'Dial', 'Redirect', 'Wait', 'Hangup', 'PreAnswer', 'Conference', 'GetSpeech');
+            'Dial', 'Redirect', 'Wait', 'Hangup', 'PreAnswer', 'Conference', 'GetSpeech', 'SIPTransfer');
 
         function __construct(){
             parent::__construct(NULL);
@@ -666,6 +677,25 @@
         * @param string $url An absolute or relative URL for a different RESTXML document.
         * @param array $attr Optional attributes
         * @return Redirect
+        */
+        function __construct($url='', $attr = array()) {
+            parent::__construct($url, $attr);
+        }
+
+    }
+    /**
+    * The <SIPTransfer> element transfers a sip call.
+    */
+    class SIPTransfer extends Element {
+
+        protected $valid = array();
+
+        /**
+        * SIPTransfer Constructor
+        *
+        * Instatiates a new SIPTransfer object with text and optional attributes.
+        * @param string $url An absolute or relative URL for a different RESTXML document.
+        * @return SIPTransfer
         */
         function __construct($url='', $attr = array()) {
             parent::__construct($url, $attr);
@@ -885,7 +915,7 @@
     class PreAnswer extends Element {
         protected $valid = array();
 
-        protected $nesting = array('Speak', 'Play', 'Wait', 'GetDigits', 'GetSpeech');
+        protected $nesting = array('Speak', 'Play', 'Wait', 'GetDigits', 'GetSpeech', 'Redirect', 'SIPTransfer');
 
          function __construct($attr = array()){
             parent::__construct($attr);
