@@ -107,7 +107,9 @@
 
             // initialize a new curl object
             $curl = curl_init($url);
+
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
 
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
             switch(strtoupper($method)) {
