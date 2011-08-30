@@ -279,6 +279,13 @@
             return $this->request($path, $method, $vars);
         }
 
+        // REST Send digits to a Call Helper
+        public function send_digits($vars = array()) {
+            $path = "$this->ApiVersion/SendDigits/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
+
         // REST Conference Mute helper
     	public function conference_mute($vars = array()) {
            $path = "$this->ApiVersion/ConferenceMute/";
