@@ -824,7 +824,7 @@
     */
     class Number extends Element {
 
-        protected $valid = array('sendDigits', 'gateways', 'gatewayCodecs',
+        protected $valid = array('sendDigits', 'sendOnPreanswer', 'gateways', 'gatewayCodecs',
                                 'gatewayTimeouts', 'gatewayRetries', 'extraDialString');
 
          /**
