@@ -863,7 +863,7 @@
             'timeLimit', 'hangupOnStar', 'maxMembers', 'recordFilePath',
             'recordFileFormat', 'recordFileName', 'action', 'method',
 	    'callbackUrl', 'callbackMethod', 'digitsMatch', 
-	    'speakEvent', 'stayAlone');
+	    'floorEvent', 'stayAlone');
 
         /**
         * Conference Constructor
