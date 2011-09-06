@@ -167,6 +167,13 @@
             return $this->request($path, $method, $vars);
         }
 
+        // REST Reload Plivo Cache Config Helper
+        public function reload_cache_config($vars = array()) {
+            $path = "$this->ApiVersion/ReloadCacheConfig/";
+            $method = "POST";
+            return $this->request($path, $method, $vars);
+        }
+
         // REST Call Helper
         public function call($vars = array()) {
             $path = "$this->ApiVersion/Call/";
