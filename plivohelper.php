@@ -661,7 +661,7 @@
     class Dial extends Element {
 
         protected $valid = array('action','method','timeout','hangupOnStar',
-    'timeLimit', 'callerId', 'confirmSound', 'dialMusic', 'confirmKey', 'redirect',
+    'timeLimit', 'callerId', 'callerName', 'confirmSound', 'dialMusic', 'confirmKey', 'redirect',
     'callbackUrl', 'callbackMethod', 'digitsMatch');
 
         protected $nesting = array('Number');
